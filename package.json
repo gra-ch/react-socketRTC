@@ -1,0 +1,36 @@
+{
+	"name": "custom-server-typescript",
+	"version": "1.0.0",
+	"scripts": {
+		"dev": "nodemon",
+		"build": "next build && tsc --project tsconfig.server.json",
+		"start": "cross-env NODE_ENV=production node dist/index.js"
+	},
+	"dependencies": {
+		"axios": "^0.21.1",
+		"bytebuffer": "^5.0.1",
+		"cross-env": "latest",
+		"date-fns": "^2.18.0",
+		"express": "latest",
+		"idb": "^6.0.0",
+		"mongoose": "^5.11.18",
+		"next": "latest",
+		"react": "latest",
+		"react-dom": "latest",
+		"socket.io": "^3.1.2",
+		"socket.io-client": "^3.1.2"
+	},
+	"devDependencies": {
+		"@types/express": "latest",
+		"@types/node": "latest",
+		"@types/react": "latest",
+		"@types/react-dom": "latest",
+		"autoprefixer": "^10.2.4",
+		"nodemon": "latest",
+		"postcss": "^8.2.6",
+		"tailwindcss": "^2.0.3",
+		"ts-node": "latest",
+		"typescript": "latest"
+	},
+	"license": "MIT"
+}
