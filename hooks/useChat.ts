@@ -97,25 +97,12 @@ const useChat = (roomId: string) => {
 	);
 
 	// Sends a message to the server that forwards it to all users in the same room
-	const sendMessage = async (newMessage: IMessage, signalProtocolManagerUser: any) => {
-		console.log('sendMessage', newMessage);
-		
-		try {
-			let encryptedMessage = await signalProtocolManagerUser.encryptMessageAsync('Gra123', newMessage.content);
-			// let encryptedMessage2 = await signalProtocolManagerUser.encryptMessageAsync(newMessage.toUser, newMessage.media);
-			console.log('encryptedMessage', encryptedMessage);
-			
-			newMessage.content = encryptedMessage;
-			// newMessage.media = encryptedMessage2;
-			socketRef.current!.emit(NEW_CHAT_MESSAGE_EVENT, {
-				content: newMessage.content,
-				media: newMessage.media,
-				msgId: socketRef.current!.id,
-			});
-		} catch(error) {
-			console.log(error);
-		}
-
+	const sendMessage = (newMessage: IMessage) => {
+		socketRef.current!.emit(NEW_CHAT_MESSAGE_EVENT, {
+			content: newMessage.content,
+			media: newMessage.media,
+			msgId: socketRef.current!.id,
+		});
 	};
 
 	return { messages, sendMessage };

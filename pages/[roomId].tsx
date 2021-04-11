@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { formatDistance } from 'date-fns';
 import useChat from '../hooks/useChat';
-import { IMessage } from '../indexeddb';
+import { IMedia, IMessage } from '../indexeddb';
 
 interface HTMLInputEvent extends React.ChangeEvent<HTMLInputElement> {
 	target: HTMLInputElement & EventTarget;
@@ -24,8 +25,9 @@ const emptyObj = {
 	time: 0,
 };
 
-const ChatRoom = (props: any) => {
-	const { roomId, loggedInUserObj, signalProtocolManagerUser } = props;
+const ChatRoom = () => {
+	const router = useRouter();
+	const { roomId } = router.query;
 	const { messages, sendMessage } = useChat(roomId as string); // Creates a websocket and manages messaging
 	const [newMessage, setNewMessage] = useState<IMessage>(emptyObj); // Message to be sent
 	const [selectedFile, setSelectedFile] = useState<any>();
@@ -48,7 +50,7 @@ const ChatRoom = (props: any) => {
 			});
 		}
 		if(newMessage) {
-			sendMessage(newMessage, signalProtocolManagerUser);
+			sendMessage(newMessage);
 			setNewMessage(emptyObj);
 		}
 		console.log(newMessage);
@@ -88,6 +90,18 @@ const ChatRoom = (props: any) => {
 				</div>
 			);
 		}
+	};
+	
+	const Example = (media: any): JSX.Element => {
+		const result = Object.keys(media).map((key) => [Number(key), media[key]]);
+		console.log('result23', result);
+
+		if(media) {
+			return (
+				<p>hv image</p>
+			);
+		}
+		return <p>no image</p>;
 	};
 
 	return (
